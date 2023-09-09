@@ -1,14 +1,16 @@
-import React from "react";
+import React,{useState} from "react";
 import {View, Text, Dimensions, FlatList, TouchableOpacity } from 'react-native'
 import { useSelector } from "react-redux";
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import AddButton from '../components/AddButton'
+import AddHistory from "../modals/AddTransHistory";
 
 const height = Dimensions.get('window').height
 const width = Dimensions.get('window').width
 
 const TransactionHistory = ()=>{
     const transHistory = useSelector(state=>state.historyState.allHistory)
+    const [isVisible, setIsVisible] = useState(false)
     return(
         <View style={{flex:1, backgroundColor:'#ffffff', padding:10}}>
             <View style={{backgroundColor:'#16abd5', flexDirection:'row', justifyContent:'space-evenly', marginTop:30}}>
@@ -37,7 +39,8 @@ const TransactionHistory = ()=>{
                 )}
             />
 
-            <AddButton name='Add transaction' handlePress={()=>null}/>
+            <AddButton name='Add transaction' handlePress={()=>setIsVisible(true)}/>
+            <AddHistory isVisible={isVisible} setIsVisible={setIsVisible} />
 
         </View>
     )
